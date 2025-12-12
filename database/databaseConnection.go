@@ -2,6 +2,7 @@ package database
 
 import (
 	"context"
+	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -25,8 +26,11 @@ func DBInstance() *mongo.Client {
 			panic(err)
 		}
 	}()
+	fmt.Println("Connected to MongoDB")
 	return client
 }
+
+var Client *mongo.Client = DBInstance()
 
 func OpenCollection(client *mongo.Client, collectionName string) *mongo.Collection {
 	var collection *mongo.Collection = client.Database("restaurant").Collection(collectionName)
